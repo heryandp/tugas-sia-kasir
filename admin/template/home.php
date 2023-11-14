@@ -1,7 +1,7 @@
 <h3>Dashboard</h3>
 <br/>
 <?php 
-	$sql=" select * from barang where stok <= 3";
+	$sql="select * from barang where stok <= 3";
 	$row = $config -> prepare($sql);
 	$row -> execute();
 	$r = $row -> rowCount();
@@ -16,10 +16,13 @@
 		";	
 	}
 ?>
+
+<!-- data jumlah -->
 <?php $hasil_barang = $lihat -> barang_row();?>
 <?php $hasil_kategori = $lihat -> kategori_row();?>
 <?php $stok = $lihat -> barang_stok_row();?>
 <?php $jual = $lihat -> jual_row();?>
+
 <div class="row">
     <!--STATUS cardS -->
     <div class="col-md-3 mb-3">
@@ -37,12 +40,11 @@
                     Barang <i class='fa fa-angle-double-right'></i></a>
             </div>
         </div>
-        <!--/grey-card -->
-    </div><!-- /col-md-3-->
+    </div>
     <!-- STATUS cardS -->
     <div class="col-md-3 mb-3">
         <div class="card">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-danger text-white">
                 <h6 class="pt-2"><i class="fas fa-chart-bar"></i> Stok Barang</h6>
             </div>
             <div class="card-body">
@@ -60,7 +62,7 @@
     <!-- STATUS cardS -->
     <div class="col-md-3 mb-3">
         <div class="card">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-info text-white">
                 <h6 class="pt-2"><i class="fas fa-upload"></i> Telah Terjual</h6>
             </div>
             <div class="card-body">
@@ -92,4 +94,56 @@
         </div>
         <!--/grey-card -->
     </div><!-- /col-md-3-->
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h6 class="pt-2"><i class="fas fa-upload"></i> Barang paling banyak terjual</h6>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead class="table bg-info text-white">
+                    <tr>
+                        <td class="text-center">Nama Barang</td>
+                        <td class="text-center">Merk Barang</td>
+                        <td class="text-center">Banyak Terjual</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        // var_dump($lihat -> jual_top());
+                        foreach($lihat -> jual_top() as $row){
+                            echo '<tr>';
+                            echo '<td class="text-center">'.$row['nama_barang'].'</td>';
+                            echo '<td class="text-center">'.$row['merk'].'</td>';
+                            echo '<td class="text-center">'.$row['jumlah'].'</td>';
+                            echo '</tr>';
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-header bg-warning text-white">
+                <h6 class="pt-2"><i class="fas fa-upload"></i> Omzet Bulan Ini</h6>
+            </div>
+            <div class="card-body">
+                <h2><?php echo "Rp.".number_format($lihat->omzet_sekarang()[0], 0, ',', '.') ?></h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h6 class="pt-2"><i class="fas fa-upload"></i> Omzet Total</h6>
+            </div>
+            <div class="card-body">
+                <h2><?php echo "Rp.".number_format($lihat->omzet_total()[0], 0, ',', '.') ?></h2>
+            </div>
+        </div>
+    </div>
 </div>
