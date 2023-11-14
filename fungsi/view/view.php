@@ -169,6 +169,15 @@ class view
         return $hasil;
     }
 
+    public function jual_top()
+    {
+        $sql = "SELECT barang.nama_barang,barang.merk,sum(jumlah) jumlah FROM nota LEFT JOIN barang ON barang.id_barang = nota.id_barang GROUP BY 1,2 ORDER BY 3 DESC LIMIT 5";
+        $row = $this->db -> prepare($sql);
+        $row -> execute();
+        $hasil = $row -> fetchAll();
+        return $hasil;
+    }
+
     public function jual()
     {
         $sql ="SELECT nota.* , barang.id_barang, barang.nama_barang, barang.harga_beli, member.id_member,
