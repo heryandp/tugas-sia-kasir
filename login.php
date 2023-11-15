@@ -1,8 +1,9 @@
 <?php
+		require 'config.php';
 	@ob_start();
 	session_start();
 	if(isset($_POST['proses'])){
-		require 'config.php';
+		// require 'config.php';
 			
 		$user = strip_tags($_POST['user']);
 		$pass = strip_tags($_POST['pass']);
@@ -20,6 +21,11 @@
 		}else{
 			echo '<script>alert("Login Gagal");history.go(-1);</script>';
 		}
+	} else {
+		$sql = 'select * from toko';
+		$row = $config->prepare($sql);
+		$row->execute();
+		$hasil = $row -> fetch();
 	}
 ?>
 <!DOCTYPE html>
@@ -31,7 +37,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login - POS Codekop</title>
+    <title>Login - POS KASIR</title>
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -52,7 +58,7 @@
                         <!-- Nested Row within Card Body -->
 						<div class="p-5">
 							<div class="text-center">
-								<h4 class="h4 text-gray-900 mb-4"><b>Login POS Codekop</b></h4>
+								<h4 class="h4 text-gray-900 mb-4"><b>Login POS KASIR</b><br><?php echo $hasil['nama_toko'] ?></h4>
 							</div>
 							<form class="form-login" method="POST">
 								<div class="form-group">
@@ -65,7 +71,7 @@
 								</div>
 								<button class="btn btn-primary btn-block" name="proses" type="submit"><i
 										class="fa fa-lock"></i>
-									SIGN IN</button>
+									Masuk</button>
 							</form>
 							<!-- <hr>
 							<div class="text-center">
