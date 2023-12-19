@@ -68,9 +68,9 @@
 								<tr>
 									<td> No</td>
 									<td> Nama Barang</td>
-									<td style="width:10%;"> Jumlah</td>
-									<td style="width:10%;"> Satuan</td>
-									<td style="width:20%;"> Total</td>
+									<td style="width:10%"> Jumlah</td>
+									<td> Satuan</td>
+									<td> Total</td>
 									<td> Kasir</td>
 									<td> Aksi</td>
 								</tr>
@@ -166,7 +166,7 @@
 								<?php $no++; }?>
 								<tr>
 									<td>Total Semua  </td>
-									<td><input type="text" class="form-control" name="total" value="<?php echo $total_bayar;?>"></td>
+									<td><input type="text" class="form-control" name="total" value="<?php echo $total_bayar;?>" disabled></td>
 								
 									<td>Bayar  </td>
 									<td><input type="text" class="form-control" name="bayar" value="<?php echo $bayar;?>"></td>
@@ -179,7 +179,7 @@
 							<!-- aksi ke table nota -->
 							<tr>
 								<td>Kembali</td>
-								<td><input type="text" class="form-control" value="<?php echo $hitung;?>"></td>
+								<td><input type="text" class="form-control" value="<?php echo $hitung;?>" disabled></td>
 								<td></td>
 								<td>
 									<a href="print.php?nm_member=<?php echo $_SESSION['admin']['nm_member'];?>
