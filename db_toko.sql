@@ -1,5 +1,5 @@
 -- Database export via SQLPro (https://www.sqlprostudio.com/allapps.html)
--- Exported by heryan at 19-12-2023 11:46.
+-- Exported by heryan at 19-12-2023 15:35.
 -- WARNING: This file may contain descructive statements such as DROPs.
 -- Please ensure that you are running the script at the proper location.
 
@@ -19,14 +19,11 @@ CREATE TABLE `barang` (
   `tgl_input` varchar(255) NOT NULL,
   `tgl_update` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Inserting 3 rows into barang
--- Insert batch #1
-INSERT INTO barang (id, id_barang, id_kategori, nama_barang, merk, harga_beli, harga_jual, satuan_barang, stok, tgl_input, tgl_update) VALUES
-(1, 'ATK1', 1, 'Pulpen', 'Standar', '1500', '1700', 'PCS', '55', '19 December 2023, 11:39', NULL),
-(2, 'ATK2', 1, 'Pensil', 'Faber Castell', '1600', '1700', 'PCS', '88', '19 December 2023, 11:39', NULL),
-(4, 'VOC3', 8, 'Diamond 50', 'Mobile Legend', '100000', '105000', 'PCS', '55', '19 December 2023, 11:41', NULL);
+-- Table barang contains no data. No inserts have been genrated.
+-- Inserting 0 rows into barang
+
 
 -- END TABLE barang
 
@@ -38,17 +35,16 @@ CREATE TABLE `kategori` (
   `nama_kategori` varchar(255) NOT NULL,
   `tgl_input` varchar(255) NOT NULL,
   PRIMARY KEY (`id_kategori`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Inserting 6 rows into kategori
+-- Inserting 5 rows into kategori
 -- Insert batch #1
 INSERT INTO kategori (id_kategori, kode_kategori, nama_kategori, tgl_input) VALUES
 (1, 'ATK', 'ATK', '7 May 2017, 10:23'),
-(5, 'SA', 'Sabun', '7 May 2017, 10:28'),
-(6, 'SN', 'Snack', '6 October 2020, 0:19'),
 (7, 'MIN', 'Minuman', '6 October 2020, 0:20'),
 (8, 'VOC', 'Voucher', '19 December 2023, 9:55'),
-(9, 'PLS', 'Pulsa', '19 December 2023, 10:09');
+(9, 'PLS', 'Pulsa', '19 December 2023, 10:09'),
+(10, 'MKN', 'Makanan', '19 December 2023, 14:41');
 
 -- END TABLE kategori
 
@@ -85,7 +81,7 @@ CREATE TABLE `member` (
 -- Inserting 1 row into member
 -- Insert batch #1
 INSERT INTO member (id_member, nm_member, alamat_member, telepon, email, gambar, NIK) VALUES
-(1, 'Fauzan Falah', 'uj harapan', '081234567890', 'example@gmail.com', 'unnamed.jpg', '12314121');
+(1, 'Dian Islamiati', 'Radio Dalam', '081234567890', 'example@gmail.com', '1702971785cara-mengambil-foto-profesional-5.jpg', '12314121');
 
 -- END TABLE member
 
@@ -97,20 +93,15 @@ CREATE TABLE `nota` (
   `id_member` int(11) NOT NULL,
   `jumlah` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
+  `pajak` varchar(255) NOT NULL,
   `tanggal_input` varchar(255) NOT NULL,
   `periode` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_nota`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Inserting 6 rows into nota
--- Insert batch #1
-INSERT INTO nota (id_nota, id_barang, id_member, jumlah, total, tanggal_input, periode) VALUES
-(1, 'BR002', 1, '5', '15000', '19 December 2023, 9:07', '12-2023'),
-(2, 'BR002', 1, '5', '15000', '19 December 2023, 9:07', '12-2023'),
-(3, 'BR002', 1, '6', '18000', '19 December 2023, 9:51', '12-2023'),
-(4, 'BR002', 1, '6', '18000', '19 December 2023, 9:51', '12-2023'),
-(5, 'BR002', 1, '6', '18000', '19 December 2023, 9:51', '12-2023'),
-(6, 'BR002', 1, '6', '18000', '19 December 2023, 9:51', '12-2023');
+-- Table nota contains no data. No inserts have been genrated.
+-- Inserting 0 rows into nota
+
 
 -- END TABLE nota
 
@@ -122,9 +113,10 @@ CREATE TABLE `penjualan` (
   `id_member` int(11) NOT NULL,
   `jumlah` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
+  `pajak` varchar(255) NOT NULL,
   `tanggal_input` varchar(255) NOT NULL,
   PRIMARY KEY (`id_penjualan`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Table penjualan contains no data. No inserts have been genrated.
 -- Inserting 0 rows into penjualan
@@ -146,7 +138,7 @@ CREATE TABLE `toko` (
 -- Inserting 1 row into toko
 -- Insert batch #1
 INSERT INTO toko (id_toko, nama_toko, alamat_toko, tlp, nama_pemilik) VALUES
-(1, 'CV Daruttaqwa', 'Ujung Harapan', '081234567890', 'Fauzan Falah');
+(1, 'CV Daruttaqwa', 'Radio Dalam', '081234567890', 'Hisyam Kazim');
 
 -- END TABLE toko
 
