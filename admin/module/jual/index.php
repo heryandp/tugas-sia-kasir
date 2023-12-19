@@ -69,7 +69,7 @@
 									<td> No</td>
 									<td> Nama Barang</td>
 									<td style="width:10%"> Jumlah</td>
-									<td> Satuan</td>
+									<td> Harga</td>
 									<td> Total</td>
 									<td> Kasir</td>
 									<td> Aksi</td>
@@ -110,7 +110,7 @@
 							<?php
 							// proses bayar dan ke nota
 							if(!empty($_GET['nota'] == 'yes')) {
-								$total = $_POST['total'];
+								$total = $_POST['total_bayar'];
 								$bayar = $_POST['bayar'];
 								if(!empty($bayar))
 								{
@@ -121,14 +121,15 @@
 										$id_member = $_POST['id_member'];
 										$jumlah = $_POST['jumlah'];
 										$total = $_POST['total1'];
+										$pajak = $_POST['total2'];
 										$tgl_input = $_POST['tgl_input'];
 										$periode = $_POST['periode'];
 										$jumlah_dipilih = count($id_barang);
 										
 										for($x=0;$x<$jumlah_dipilih;$x++){
 
-											$d = array($id_barang[$x],$id_member[$x],$jumlah[$x],$total[$x],$tgl_input[$x],$periode[$x]);
-											$sql = "INSERT INTO nota (id_barang,id_member,jumlah,total,tanggal_input,periode) VALUES(?,?,?,?,?,?)";
+											$d = array($id_barang[$x],$id_member[$x],$jumlah[$x],$total[$x],$pajak[$x],$tgl_input[$x],$periode[$x]);
+											$sql = "INSERT INTO nota (id_barang,id_member,jumlah,total,pajak,tanggal_input,periode) VALUES(?,?,?,?,?,?,?)";
 											$row = $config->prepare($sql);
 											$row->execute($d);
 
@@ -157,18 +158,24 @@
 							<!-- aksi ke table nota -->
 							<form method="POST" action="index.php?page=jual&nota=yes#kasirnya">
 								<?php foreach($hasil_penjualan as $isi){;?>
-									<input type="hidden" name="id_barang[]" value="<?php echo $isi['id_barang'];?>">
-									<input type="hidden" name="id_member[]" value="<?php echo $isi['id_member'];?>">
-									<input type="hidden" name="jumlah[]" value="<?php echo $isi['jumlah'];?>">
-									<input type="hidden" name="total1[]" value="<?php echo $isi['total'];?>">
-									<input type="hidden" name="tgl_input[]" value="<?php echo $isi['tanggal_input'];?>">
-									<input type="hidden" name="periode[]" value="<?php echo date('m-Y');?>">
+									<input hidden name="id_barang[]" value="<?php echo $isi['id_barang'];?>">
+									<input hidden name="id_member[]" value="<?php echo $isi['id_member'];?>">
+									<input hidden name="jumlah[]" value="<?php echo $isi['jumlah'];?>">
+									<input hidden name="total1[]" value="<?php echo $isi['total'];?>">
+									<input hidden name="total2[]" value="<?php echo $isi['pajak'];?>">
+									<input hidden name="tgl_input[]" value="<?php echo $isi['tanggal_input'];?>">
+									<input hidden name="periode[]" value="<?php echo date('m-Y');?>">
 								<?php $no++; }?>
 								<tr>
-									<td>Total Semua  </td>
+									<td>Total</td>
 									<td><input type="text" class="form-control" name="total" value="<?php echo $total_bayar;?>" readonly></td>
-								
-									<td>Bayar  </td>
+									<td>Total Pajak (10%)</td>
+									<td><input type="text" class="form-control" name="total_pajak" value="<?php echo $total_bayar*0.1;?>" readonly></td>
+									<td>Total Semua</td>
+									<td><input type="text" class="form-control" name="total_bayar" value="<?php echo $total_bayar*1.1;?>" readonly></td>
+								</tr>
+								<tr>
+									<td>Bayar</td>
 									<td><input type="text" class="form-control" name="bayar" value="<?php echo $bayar;?>"></td>
 									<td><button class="btn btn-success"><i class="fa fa-shopping-cart"></i> Bayar</button>
 									<?php  if(!empty($_GET['nota'] == 'yes')) {?>

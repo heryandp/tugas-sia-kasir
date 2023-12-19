@@ -53,7 +53,6 @@ if (!empty($_SESSION['admin'])) {
             $id = $resultid['id']+1;
         }
 
-        
         $data[] = $resultkd[0]['kode_kategori'].$id;
         $data[] = $kategori;
         $data[] = $nama;
@@ -89,9 +88,10 @@ if (!empty($_SESSION['admin'])) {
             $data1[] = $kasir;
             $data1[] = $jumlah;
             $data1[] = $total;
+            $data1[] = $total*0.1;
             $data1[] = $tgl;
 
-            $sql1 = 'INSERT INTO penjualan (id_barang,id_member,jumlah,total,tanggal_input) VALUES (?,?,?,?,?)';
+            $sql1 = 'INSERT INTO penjualan (id_barang,id_member,jumlah,total,pajak,tanggal_input) VALUES (?,?,?,?,?,?)';
             $row1 = $config -> prepare($sql1);
             $row1 -> execute($data1);
 
