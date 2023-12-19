@@ -1,6 +1,41 @@
 <?php
-
 session_start();
+
+// fungsi untuk upload foto produk
+function uploadPhoto($file)
+{
+    $targetDirectory = '../../assets/produk/';
+    $targetFile = $targetDirectory . basename($file['name']);
+
+    // Check if file is an image
+    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+    if (!getimagesize($file['tmp_name'])) {
+        echo 'File is not an image.';
+        return false;
+    }
+
+    // Check file size
+    if ($file['size'] > 500000) {
+        echo 'Sorry, your file is too large.';
+        return false;
+    }
+
+    // Allow only certain file formats
+    $allowedFormats = ['jpg', 'jpeg', 'png', 'gif'];
+    if (!in_array($imageFileType, $allowedFormats)) {
+        echo 'Sorry, only JPG, JPEG, PNG & GIF files are allowed.';
+        return false;
+    }
+
+    // Move the file to the target directory
+    if (move_uploaded_file($file['tmp_name'], $targetFile)) {
+        return $targetFile;
+    } else {
+        echo 'Sorry, there was an error uploading your file.';
+        return false;
+    }
+}
+
 if (!empty($_SESSION['admin'])) {
     require '../../config.php';
     if (!empty($_GET['kategori'])) {
@@ -26,6 +61,7 @@ if (!empty($_SESSION['admin'])) {
         $satuan = htmlentities($_POST['satuan']);
         $stok = htmlentities($_POST['stok']);
         $tgl = htmlentities($_POST['tgl']);
+        $foto = htmlentities($_FILES['foto']['name']);
 
         // get kode kategori untuk penamaan id barang
         $sql = 'SELECT kode_kategori FROM kategori WHERE id_kategori='.$kategori;
@@ -62,10 +98,17 @@ if (!empty($_SESSION['admin'])) {
         $data[] = $satuan;
         $data[] = $stok;
         $data[] = $tgl;
+        // $data[] = $foto;
+
+        // var_dump($data);
+
+        // $foto = uploadPhoto($_FILES['foto']);
+
         $sql = 'INSERT INTO barang (id_barang,id_kategori,nama_barang,merk,harga_beli,harga_jual,satuan_barang,stok,tgl_input) 
 			    VALUES (?,?,?,?,?,?,?,?,?) ';
         $row = $config -> prepare($sql);
         $row -> execute($data);
+
         echo '<script>window.location="../../index.php?page=barang&success=tambah-data"</script>';
     }
     

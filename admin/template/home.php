@@ -28,7 +28,7 @@
     <div class="col-md-3 mb-3">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h6 class="pt-2"><i class="fas fa-cubes"></i> Nama Barang</h6>
+                <h6 class="pt-2"><i class="fas fa-cubes"></i> Jenis Barang</h6>
             </div>
             <div class="card-body">
                 <center>

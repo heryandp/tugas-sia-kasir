@@ -18,7 +18,13 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <a href="./index.php?page=jual" class="btn btn-info ml-1 mr-1 mt-1" role="button">Transaksi Jual</a>
+    <!-- <a href="./index.php?page=jual" class="btn btn-info ml-1 mr-1 mt-1" role="button">Transaksi Jual</a> -->
+    <a href="./index.php?page=jual" class="btn ml-1 mr-1 mt-1 btn-info btn-icon-split">
+        <span class="icon text-white">
+            <i class="fas fa-cart-plus"></i>
+        </span>
+        <span class="text">Transaksi Jual</span>
+    </a>
 
     <li class="nav-item active">
         <a class="nav-link" href="index.php">
