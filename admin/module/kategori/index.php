@@ -25,8 +25,13 @@
 <form method="POST" action="fungsi/edit/edit.php?kategori=edit">
     <table>
         <tr>
-            <td style="width:25pc;"><input type="text" class="form-control" value="<?= $edit['nama_kategori'];?>"
+            <td style="width:25pc;">
+                <input type="text" class="form-control" value="<?= $edit['nama_kategori'];?>"
                     required name="kategori" placeholder="Masukan Kategori Barang Baru">
+            <td>
+                <input type="text" class="form-control" value="<?= $edit['kode_kategori'];?>"
+                    required name="kdkategori" placeholder="Masukan Kode Kategori">
+            </td>
                 <input type="hidden" name="id" value="<?= $edit['id_kategori'];?>">
             </td>
             <td style="padding-left:10px;"><button id="tombol-simpan" class="btn btn-primary"><i class="fa fa-edit"></i>
