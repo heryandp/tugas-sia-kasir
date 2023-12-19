@@ -17,7 +17,7 @@ if (!empty($_SESSION['admin'])) {
     }
 
     if (!empty($_GET['barang'])) {
-        $id = htmlentities($_POST['id']);
+        // $id = htmlentities($_POST['id']);
         $kategori = htmlentities($_POST['kategori']);
         $nama = htmlentities($_POST['nama']);
         $merk = htmlentities($_POST['merk']);
@@ -27,7 +27,34 @@ if (!empty($_SESSION['admin'])) {
         $stok = htmlentities($_POST['stok']);
         $tgl = htmlentities($_POST['tgl']);
 
-        $data[] = $id;
+        // get kode kategori untuk penamaan id barang
+        $sql = 'SELECT kode_kategori FROM kategori WHERE id_kategori='.$kategori;
+        $row = $config -> prepare($sql);
+        $row -> execute();
+        $resultkd = $row->fetchAll(PDO::FETCH_ASSOC);
+
+        // cek table barang kosong/tidak
+        $sql = 'SELECT COUNT(*) FROM barang';
+        $row = $config -> prepare($sql);
+        $row -> execute();
+        $count = $row->fetchColumn();
+
+        if ($count == 0) {
+            $sql = 'ALTER TABLE barang AUTO_INCREMENT = 0';
+            $row = $config -> prepare($sql);
+            $row -> execute();
+            $id = 1;
+        } else {
+             // buat penomoran untuk id barang
+            $sql = 'SELECT id FROM barang ORDER BY ID DESC LIMIT 1';
+            $row = $config -> prepare($sql);
+            $row -> execute();
+            $resultid = $row->fetch(PDO::FETCH_ASSOC);
+            $id = $resultid['id']+1;
+        }
+
+        
+        $data[] = $resultkd[0]['kode_kategori'].$id;
         $data[] = $kategori;
         $data[] = $nama;
         $data[] = $merk;

@@ -148,13 +148,13 @@
                         <div class="modal-body">
                             <table class="table table-striped bordered">
                                 <?php
-									$format = $lihat -> barang_id();
+									// $format = $lihat -> barang_id();
 								?>
-                                <tr>
+                                <!-- <tr hidden>
                                     <td>ID Barang</td>
                                     <td><input type="text" readonly="readonly" required value="<?php echo $format;?>"
                                             class="form-control" name="id"></td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td>Kategori</td>
                                     <td>
