@@ -166,7 +166,7 @@
 								<?php $no++; }?>
 								<tr>
 									<td>Total Semua  </td>
-									<td><input type="text" class="form-control" name="total" value="<?php echo $total_bayar;?>" disabled></td>
+									<td><input type="text" class="form-control" name="total" value="<?php echo $total_bayar;?>" readonly></td>
 								
 									<td>Bayar  </td>
 									<td><input type="text" class="form-control" name="bayar" value="<?php echo $bayar;?>"></td>
@@ -179,7 +179,7 @@
 							<!-- aksi ke table nota -->
 							<tr>
 								<td>Kembali</td>
-								<td><input type="text" class="form-control" value="<?php echo $hitung;?>" disabled></td>
+								<td><input type="text" class="form-control" value="<?php echo $hitung;?>" readonly></td>
 								<td></td>
 								<td>
 									<a href="print.php?nm_member=<?php echo $_SESSION['admin']['nm_member'];?>
