@@ -4,11 +4,13 @@ session_start();
 if (!empty($_SESSION['admin'])) {
     require '../../config.php';
     if (!empty($_GET['kategori'])) {
+        $kd= htmlentities(htmlentities($_POST['kdkategori']));
         $nama= htmlentities(htmlentities($_POST['kategori']));
         $tgl= date("j F Y, G:i");
+        $data[] = $kd;
         $data[] = $nama;
         $data[] = $tgl;
-        $sql = 'INSERT INTO kategori (nama_kategori,tgl_input) VALUES(?,?)';
+        $sql = 'INSERT INTO kategori (kode_kategori,nama_kategori,tgl_input) VALUES (?,?,?)';
         $row = $config -> prepare($sql);
         $row -> execute($data);
         echo '<script>window.location="../../index.php?page=kategori&&success=tambah-data"</script>';

@@ -40,6 +40,8 @@
         <tr>
             <td style="width:25pc;"><input type="text" class="form-control" required name="kategori"
                     placeholder="Masukan Kategori Barang Baru"></td>
+            <td style="width:15pc;"><input type="text" class="form-control" required name="kdkategori"
+                    placeholder="Masukan Kode Kategori"></td>
             <td style="padding-left:10px;"><button id="tombol-simpan" class="btn btn-primary"><i class="fa fa-plus"></i>
                     Insert Data</button></td>
         </tr>
@@ -53,6 +55,7 @@
             <thead>
                 <tr style="background:#DFF0D8;color:#333;">
                     <th>No.</th>
+                    <th>Kode Kategori</th>
                     <th>Kategori</th>
                     <th>Tanggal Input</th>
                     <th>Aksi</th>
@@ -66,14 +69,23 @@
 			?>
                 <tr>
                     <td><?php echo $no;?></td>
+                    <td><?php echo $isi['kode_kategori'];?></td>
                     <td><?php echo $isi['nama_kategori'];?></td>
                     <td><?php echo $isi['tgl_input'];?></td>
                     <td>
-                        <a href="index.php?page=kategori&uid=<?php echo $isi['id_kategori'];?>"><button
-                                class="btn btn-warning">Edit</button></a>
-                        <a href="fungsi/hapus/hapus.php?kategori=hapus&id=<?php echo $isi['id_kategori'];?>"
-                            onclick="javascript:return confirm('Hapus Data Kategori ?');"><button
-                                class="btn btn-danger">Hapus</button></a>
+                        <a href="index.php?page=kategori&uid=<?php echo $isi['id_kategori'];?>" class="btn btn-warning btn-icon-split">
+                            <span class="icon text-white-50">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                            <span class="text">Edit</span>
+                        </a>
+                        <a href="fungsi/hapus/hapus.php?kategori=hapus&id=<?php echo $isi['id_kategori'];?>" class="btn btn-danger btn-icon-split"
+                            onclick="javascript:return confirm('Hapus Data Kategori ?');">
+                            <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                            </span>
+                            <span class="text">Hapus</span>
+                        </a>
                     </td>
                 </tr>
                 <?php $no++; }?>
