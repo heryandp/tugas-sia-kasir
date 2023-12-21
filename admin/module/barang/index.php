@@ -144,17 +144,17 @@
                         <h5 class="modal-title"><i class="fa fa-plus"></i> Tambah Barang</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <form action="fungsi/tambah/tambah.php?barang=tambah" method="POST">
+                    <form action="fungsi/tambah/tambah.php?barang=tambah" method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
                             <table class="table table-striped bordered">
                                 <?php
-									$format = $lihat -> barang_id();
+									// $format = $lihat -> barang_id();
 								?>
-                                <tr>
+                                <!-- <tr hidden>
                                     <td>ID Barang</td>
                                     <td><input type="text" readonly="readonly" required value="<?php echo $format;?>"
                                             class="form-control" name="id"></td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td>Kategori</td>
                                     <td>
@@ -200,6 +200,10 @@
                                     <td>Stok</td>
                                     <td><input type="number" required Placeholder="Stok" class="form-control"
                                             name="stok"></td>
+                                </tr>
+                                <tr>
+                                    <td>Foto Produk</td>
+                                    <td><input type="file" accept="image/*" name="foto"></td>
                                 </tr>
                                 <tr>
                                     <td>Tanggal Input</td>

@@ -22,13 +22,16 @@ if (!empty($_SESSION['admin'])) {
 
     if (!empty($_GET['kategori'])) {
         $nama= htmlentities($_POST['kategori']);
+        $kd= htmlentities($_POST['kdkategori']);
         $id= htmlentities($_POST['id']);
         $data[] = $nama;
+        $data[] = $kd;
         $data[] = $id;
-        $sql = 'UPDATE kategori SET  nama_kategori=? WHERE id_kategori=?';
+        $sql = 'UPDATE kategori SET  nama_kategori=?,kode_kategori=? WHERE id_kategori=?';
         $row = $config -> prepare($sql);
         $row -> execute($data);
-        echo '<script>window.location="../../index.php?page=kategori&uid='.$id.'&success-edit=edit-data"</script>';
+        // echo '<script>window.location="../../index.php?page=kategori&uid='.$id.'&success-edit=edit-data"</script>';
+        echo '<script>window.location="../../index.php?page=kategori&success-edit=edit-data"</script>';
     }
 
     if (!empty($_GET['stok'])) {
@@ -183,8 +186,9 @@ if (!empty($_SESSION['admin'])) {
             $total = $jual * $jumlah;
             $data1[] = $jumlah;
             $data1[] = $total;
+            $data1[] = $total*0.1;
             $data1[] = $id;
-            $sql1 = 'UPDATE penjualan SET jumlah=?,total=? WHERE id_penjualan=?';
+            $sql1 = 'UPDATE penjualan SET jumlah=?,total=?,pajak=? WHERE id_penjualan=?';
             $row1 = $config -> prepare($sql1);
             $row1 -> execute($data1);
             echo '<script>window.location="../../index.php?page=jual#keranjang"</script>';

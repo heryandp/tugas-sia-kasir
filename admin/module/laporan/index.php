@@ -144,8 +144,8 @@
 								<th> ID Barang</th>
 								<th> Nama Barang</th>
 								<th style="width:10%;"> Jumlah</th>
-								<th style="width:10%;"> Modal</th>
-								<th style="width:10%;"> Total</th>
+								<th style="width:10%;"> Harga Beli</th>
+								<th style="width:10%;"> Harga Jual</th>
 								<th> Kasir</th>
 								<th> Tanggal Input</th>
 							</tr>
