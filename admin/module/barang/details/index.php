@@ -3,7 +3,7 @@
 	$hasil = $lihat -> barang_edit($id);
 ?>
 <a href="index.php?page=barang" class="btn btn-primary mb-3"><i class="fa fa-angle-left"></i> Balik </a>
-<h4>Details Barang</h4>
+<h4>Detil Barang</h4>
 <?php if(isset($_GET['success-stok'])){?>
 <div class="alert alert-success">
 	<p>Tambah Stok Berhasil !</p>
@@ -19,8 +19,19 @@
 	<p>Hapus Data Berhasil !</p>
 </div>
 <?php }?>
+<?php if(isset($_GET['gagal'])){?>
+<div class="alert alert-danger">
+	<p>Gagal menambahkan data !</p>
+</div>
+<?php }?>
+
+
 <div class="card card-body">
-	<div class="table-responsive">
+	<div class="table-responsive d-flex justify-content-center ">
+		<figure class="figure col-md-6">
+			<img src="<?php echo $hasil['foto'];?>" class="figure-img img-fluid rounded" alt="">
+			<figcaption class="figure-caption text-center">Foto Produk</figcaption>
+		</figure>
 		<table class="table table-striped">
 			<tr>
 				<td>ID Barang</td>

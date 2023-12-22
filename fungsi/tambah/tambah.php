@@ -4,21 +4,11 @@ session_start();
 // fungsi untuk upload foto produk
 function uploadPhoto($file)
 {
-    $targetDirectory = '../../assets/produk/';
+    $targetDirectory = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/produk/';
     $targetFile = $targetDirectory . basename($file['name']);
 
     // Check if file is an image
     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
-    if (!getimagesize($file['tmp_name'])) {
-        echo 'File is not an image.';
-        return false;
-    }
-
-    // Check file size
-    if ($file['size'] > 500000) {
-        echo 'Sorry, your file is too large.';
-        return false;
-    }
 
     // Allow only certain file formats
     $allowedFormats = ['jpg', 'jpeg', 'png', 'gif'];
@@ -45,10 +35,21 @@ if (!empty($_SESSION['admin'])) {
         $data[] = $kd;
         $data[] = $nama;
         $data[] = $tgl;
-        $sql = 'INSERT INTO kategori (kode_kategori,nama_kategori,tgl_input) VALUES (?,?,?)';
+
+        //Cek apakah kode sudah terpakai
+        $sql = "SELECT COUNT(*) FROM kategori WHERE kode_kategori = '".$kd."'";
         $row = $config -> prepare($sql);
-        $row -> execute($data);
-        echo '<script>window.location="../../index.php?page=kategori&&success=tambah-data"</script>';
+        $row -> execute();
+        $count = $row->fetchColumn();
+        
+        if ($count == 0){
+            $sql = 'INSERT INTO kategori (kode_kategori,nama_kategori,tgl_input) VALUES (?,?,?)';
+            $row = $config -> prepare($sql);
+            $row -> execute($data);
+            echo '<script>window.location="../../index.php?page=kategori&&success=tambah-data"</script>';
+        } else {
+            echo '<script>window.location="../../index.php?page=kategori&&gagal=tambah-data"; alert("Kode sudah terpakai !");</script>';
+        }
     }
 
     if (!empty($_GET['barang'])) {
@@ -89,6 +90,8 @@ if (!empty($_SESSION['admin'])) {
             $id = $resultid['id']+1;
         }
 
+        $foto = uploadPhoto($_FILES['foto']);
+
         $data[] = $resultkd[0]['kode_kategori'].$id;
         $data[] = $kategori;
         $data[] = $nama;
@@ -97,19 +100,19 @@ if (!empty($_SESSION['admin'])) {
         $data[] = $jual;
         $data[] = $satuan;
         $data[] = $stok;
+        $data[] = $foto;
         $data[] = $tgl;
-        // $data[] = $foto;
 
-        // var_dump($data);
+        if($foto != false){
+            $sql = 'INSERT INTO barang (id_barang,id_kategori,nama_barang,merk,harga_beli,harga_jual,satuan_barang,stok,foto,tgl_input) 
+                    VALUES (?,?,?,?,?,?,?,?,?,?) ';
+            $row = $config -> prepare($sql);
+            $row -> execute($data);
 
-        // $foto = uploadPhoto($_FILES['foto']);
-
-        $sql = 'INSERT INTO barang (id_barang,id_kategori,nama_barang,merk,harga_beli,harga_jual,satuan_barang,stok,tgl_input) 
-			    VALUES (?,?,?,?,?,?,?,?,?) ';
-        $row = $config -> prepare($sql);
-        $row -> execute($data);
-
-        echo '<script>window.location="../../index.php?page=barang&success=tambah-data"</script>';
+            echo '<script>window.location="../../index.php?page=barang&success=tambah-data"</script>';
+        }else{
+            echo '<script>window.location="../../index.php?page=barang&gagal=tambah-data"</script>';
+        }
     }
     
     if (!empty($_GET['jual'])) {

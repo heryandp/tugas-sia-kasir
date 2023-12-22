@@ -16,6 +16,7 @@ CREATE TABLE `barang` (
   `harga_jual` varchar(255) NOT NULL,
   `satuan_barang` varchar(255) NOT NULL,
   `stok` text NOT NULL,
+  `foto` varchar(255) NOT NULL,
   `tgl_input` varchar(255) NOT NULL,
   `tgl_update` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
