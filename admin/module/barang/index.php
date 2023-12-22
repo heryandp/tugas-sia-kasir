@@ -11,8 +11,13 @@
         </div>
         <?php }?>
         <?php if(isset($_GET['remove'])){?>
-        <div class="alert alert-danger">
+        <div class="alert alert-warning">
             <p>Hapus Data Berhasil !</p>
+        </div>
+        <?php }?>
+        <?php if(isset($_GET['gagal'])){?>
+        <div class="alert alert-danger">
+            <p>Gagal menambahkan data !</p>
         </div>
         <?php }?>
 
@@ -32,11 +37,11 @@
 		?>
         <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
-            <i class="fa fa-plus"></i> Insert Data</button>
+            <i class="fa fa-plus"></i> Tambah Data</button>
         <a href="index.php?page=barang&stok=yes" class="btn btn-warning btn-md mr-2">
-            <i class="fa fa-list"></i> Sortir Stok Kurang</a>
+            <i class="fa fa-filter"></i> Filter Stok Kurang</a>
         <a href="index.php?page=barang" class="btn btn-success btn-md">
-            <i class="fa fa-refresh"></i> Refresh Data</a>
+            <i class="fa fa-spinner"></i> Refresh Data</a>
         <div class="clearfix"></div>
         <br />
         <!-- view barang -->
@@ -102,14 +107,26 @@
                                         <button class="btn btn-danger btn-sm">Hapus</button></a>
                                 </form>
                                 <?php }else{?>
-                                <a href="index.php?page=barang/details&barang=<?php echo $isi['id_barang'];?>"><button
-                                        class="btn btn-primary btn-xs">Details</button></a>
+                                <a href="index.php?page=barang/details&barang=<?php echo $isi['id_barang'];?>" class="btn btn-primary btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-info"></i>
+                                    </span>
+                                    <span class="text">Detil</span>
+                                </a>
 
-                                <a href="index.php?page=barang/edit&barang=<?php echo $isi['id_barang'];?>"><button
-                                        class="btn btn-warning btn-xs">Edit</button></a>
-                                <a href="fungsi/hapus/hapus.php?barang=hapus&id=<?php echo $isi['id_barang'];?>"
-                                    onclick="javascript:return confirm('Hapus Data barang ?');"><button
-                                        class="btn btn-danger btn-xs">Hapus</button></a>
+                                <a href="index.php?page=barang/edit&barang=<?php echo $isi['id_barang'];?>" class="btn btn-warning btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                    <span class="text">Edit</span>
+                                </a>
+
+                                <a href="fungsi/hapus/hapus.php?barang=hapus&id=<?php echo $isi['id_barang'];?>" onclick="javascript:return confirm('Hapus Data barang ?');" class="btn btn-danger btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span class="text">Hapus</span>
+                                </a>
                                 <?php }?>
                         </tr>
                         <?php 
@@ -159,7 +176,7 @@
                                     <td>Kategori</td>
                                     <td>
                                         <select name="kategori" class="form-control" required>
-                                            <option value="#">Pilih Kategori</option>
+                                            <option value="#" disabled selected>Pilih Kategori</option>
                                             <?php  $kat = $lihat -> kategori(); foreach($kat as $isi){ 	?>
                                             <option value="<?php echo $isi['id_kategori'];?>">
                                                 <?php echo $isi['nama_kategori'];?></option>
@@ -191,8 +208,11 @@
                                     <td>Satuan Barang</td>
                                     <td>
                                         <select name="satuan" class="form-control" required>
-                                            <option value="#">Pilih Satuan</option>
+                                            <option value="#" disabled selected>Pilih Satuan</option>
                                             <option value="PCS">PCS</option>
+                                            <option value="PCS">DUS</option>
+                                            <option value="PCS">PAK</option>
+                                            <option value="PCS">BAL</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -213,9 +233,8 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Insert
-                                Data</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
                         </div>
                     </form>
                 </div>

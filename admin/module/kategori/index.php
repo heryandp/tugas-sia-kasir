@@ -1,4 +1,4 @@
-<h4>Kategori</h4>
+<h4>Data Kategori</h4>
 <br />
 <?php if(isset($_GET['success'])){?>
 <div class="alert alert-success">
@@ -15,6 +15,11 @@
     <p>Hapus Data Berhasil !</p>
 </div>
 <?php }?>
+<?php if(isset($_GET['gagal'])){?>
+        <div class="alert alert-danger">
+            <p>Gagal menambahkan data !</p>
+        </div>
+        <?php }?>
 <?php 
 	if(!empty($_GET['uid'])){
 	$sql = "SELECT * FROM kategori WHERE id_kategori = ?";
@@ -48,7 +53,7 @@
             <td style="width:15pc;"><input type="text" class="form-control" required name="kdkategori"
                     placeholder="Masukan Kode Kategori"></td>
             <td style="padding-left:10px;"><button id="tombol-simpan" class="btn btn-primary"><i class="fa fa-plus"></i>
-                    Insert Data</button></td>
+                    Tambah Data</button></td>
         </tr>
     </table>
 </form>

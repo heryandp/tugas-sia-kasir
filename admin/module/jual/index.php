@@ -51,7 +51,7 @@
 				<div class="card-header bg-primary text-white">
 					<h5><i class="fa fa-shopping-cart"></i> KASIR
 					<a class="btn btn-danger float-right" 
-						onclick="javascript:return confirm('Apakah anda ingin reset keranjang ?');" href="fungsi/hapus/hapus.php?penjualan=jual">
+						onclick="javascript:return confirm('Apakah anda ingin reset keranjang ?');" href="fungsi/hapus/hapus.php?penjualan=jual"><i class="fa fa-spinner"></i>
 						<b>RESET KERANJANG</b></a>
 					</h5>
 				</div>
@@ -92,11 +92,11 @@
 											<td>Rp.<?php echo number_format($isi['total']);?>,-</td>
 											<td><?php echo $isi['nm_member'];?></td>
 											<td>
-												<button type="submit" class="btn btn-warning">Update</button>
+												<button type="submit" class="btn btn-warning"><i class="fa fa-cog"></i> Update</button>
 										</form>
 										<!-- aksi ke table penjualan -->
 										<a href="fungsi/hapus/hapus.php?jual=jual&id=<?php echo $isi['id_penjualan'];?>&brg=<?php echo $isi['id_barang'];?>
-											&jml=<?php echo $isi['jumlah']; ?>"  class="btn btn-danger"><i class="fa fa-times"></i>
+											&jml=<?php echo $isi['jumlah']; ?>"  class="btn btn-danger"><i class="fa fa-trash"></i> Hapus
 										</a>
 									</td>
 								</tr>
@@ -176,11 +176,10 @@
 								</tr>
 								<tr>
 									<td>Bayar</td>
-									<td><input type="text" class="form-control" name="bayar" value="<?php echo $bayar;?>"></td>
-									<td><button class="btn btn-success"><i class="fa fa-shopping-cart"></i> Bayar</button>
-									<?php  if(!empty($_GET['nota'] == 'yes')) {?>
-										<a class="btn btn-danger" href="fungsi/hapus/hapus.php?penjualan=jual">
-										<b>RESET</b></a></td><?php }?></td>
+									<td><input type="text" class="form-control" name="bayar" value="<?php echo $bayar;?>" <?php echo $hasil_penjualan == null ? "disabled" : "";?> required></td>
+									<td>
+										<button class="btn btn-success" <?php echo $hasil_penjualan == null ? "disabled" : ""; ?>><i class="fa fa-shopping-cart"></i> Bayar</button>
+									</td>
 								</tr>
 							</form>
 							<!-- aksi ke table nota -->
@@ -191,8 +190,8 @@
 								<td>
 									<a href="print.php?nm_member=<?php echo $_SESSION['admin']['nm_member'];?>
 									&bayar=<?php echo $bayar;?>&kembali=<?php echo $hitung;?>" target="_blank">
-									<button class="btn btn-secondary">
-										<i class="fa fa-print"></i> Print Untuk Bukti Pembayaran
+									<button <?php echo empty($_GET['nota'] == 'yes') ? "disabled" : ""; ?> class="btn btn-primary">
+										<i class="fa fa-print"></i> Print Bukti Pembayaran
 									</button></a>
 								</td>
 							</tr>

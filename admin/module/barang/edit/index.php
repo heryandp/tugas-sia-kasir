@@ -33,10 +33,9 @@
 					<td>Kategori</td>
 					<td>
 						<select name="kategori" class="form-control">
-							<option value="<?php echo $hasil['id_kategori'];?>"><?php echo $hasil['nama_kategori'];?></option>
-							<option value="#">Pilih Kategori</option>
+							<option value="#" disabled>Pilih Kategori</option>
 							<?php  $kat = $lihat -> kategori(); foreach($kat as $isi){ 	?>
-							<option value="<?php echo $isi['id_kategori'];?>"><?php echo $isi['nama_kategori'];?></option>
+							<option <?php echo $hasil['nama_kategori'] == $isi['nama_kategori'] ? "selected" : "" ;?> value="<?php echo $isi['id_kategori'];?>"><?php echo $isi['nama_kategori'];?></option>
 							<?php }?>
 						</select>
 					</td>
@@ -61,10 +60,12 @@
 					<td>Satuan Barang</td>
 					<td>
 						<select name="satuan" class="form-control">
-							<option value="<?php echo $hasil['satuan_barang'];?>"><?php echo $hasil['satuan_barang'];?>
 							</option>
-							<option value="#">Pilih Satuan</option>
-							<option value="PCS">PCS</option>
+							<option value="#" disabled>Pilih Satuan</option>
+							<option <?php echo $hasil['satuan_barang'] == "PCS" ? "selected" : "" ;?> value="PCS">PCS</option>
+							<option <?php echo $hasil['satuan_barang'] == "DUS" ? "selected" : "" ;?> value="PCS">DUS</option>
+							<option <?php echo $hasil['satuan_barang'] == "PAK" ? "selected" : "" ;?> value="PCS">PAK</option>
+							<option <?php echo $hasil['satuan_barang'] == "BAL" ? "selected" : "" ;?> value="PCS">BAL</option>
 						</select>
 					</td>
 				</tr>
