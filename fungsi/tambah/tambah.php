@@ -5,10 +5,16 @@ session_start();
 function uploadPhoto($file)
 {
     $targetDirectory = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/produk/';
-    $targetFile = $targetDirectory . basename($file['name']);
+
+    // Generate a unique filename using timestamp and original extension
+    $timestamp = time();  // Get current timestamp
+    $originalFilename = basename($file['name']);
+    $extension = pathinfo($originalFilename, PATHINFO_EXTENSION);
+    $newFilename = $timestamp . rand(1,99) . '.' . $extension;
+    $targetFile = $targetDirectory . $newFilename;
 
     // Check if file is an image
-    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+    $imageFileType = strtolower($extension);  // Already lowercase from pathinfo
 
     // Allow only certain file formats
     $allowedFormats = ['jpg', 'jpeg', 'png', 'gif'];
@@ -19,7 +25,7 @@ function uploadPhoto($file)
 
     // Move the file to the target directory
     if (move_uploaded_file($file['tmp_name'], $targetFile)) {
-        return $targetFile;
+        return $newFilename;
     } else {
         echo 'Sorry, there was an error uploading your file.';
         return false;

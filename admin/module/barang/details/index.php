@@ -29,8 +29,7 @@
 <div class="card card-body">
 	<div class="table-responsive d-flex justify-content-center ">
 		<figure class="figure col-md-6">
-			<img src="<?php echo $hasil['foto'];?>" class="figure-img img-fluid rounded" alt="">
-			<figcaption class="figure-caption text-center">Foto Produk</figcaption>
+			<img src="<?php echo 'assets/img/produk/' . $hasil['foto'];?>" class="figure-img img-fluid rounded" alt="">
 		</figure>
 		<table class="table table-striped">
 			<tr>
