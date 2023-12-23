@@ -32,16 +32,20 @@
 					<i class="fa fa-spinner"></i> Refresh</a>
 
 				<?php if(!empty($_GET['cari'])){?>
-				<a href="excel.php?cari=yes&bln=<?=$_POST['bln'];?>&thn=<?=$_POST['thn'];?>"
+					<a href="excel.php?cari=yes&bln=<?=$_POST['bln'];?>&thn=<?=$_POST['thn'];?>"
 					class="btn btn-info"><i class="fa fa-download"></i>
 					Excel</a>
-				<?php }else{?>
-				<a href="excel.php" class="btn btn-info"><i class="fa fa-download"></i>
+				<?php } else if(!empty($_GET['hari'])){?>
+					<a href="excel.php?hari=yes&tgl=<?=$_POST['hari'];?>"
+					class="btn btn-info"><i class="fa fa-download"></i>
+					Excel</a>
+				<?php } else{?>
+					<a href="excel.php" class="btn btn-info"><i class="fa fa-download"></i>
 					Excel</a>
 				<?php }?>
 			</div>
 			<div class="card-body p-0">
-				<form method="post" action="index.php?page=laporan&hari=cek">
+				<form method="post" action="index.php?page=laporan&hari=yes">
 					<table class="table table-striped">
 						<tr>
 							<th>
@@ -72,7 +76,7 @@
 						</tr>
 					</table>
 				</form>
-				<form method="post" action="index.php?page=laporan&cari=ok">
+				<form method="post" action="index.php?page=laporan&cari=yes">
 					<table class="table table-striped">
 						<tr>
 							<th>
@@ -157,7 +161,7 @@
 									$bayar = 0;
 									$hasil = $lihat -> hari_jual($hari);
 								}else{
-									$hasil = $lihat -> jual();
+									$hasil = $lihat -> hari_jual(date('Y-m-d'));
 								}
 							?>
 							<?php 

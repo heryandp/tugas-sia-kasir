@@ -5,15 +5,6 @@
 		echo '<script>window.location="login.php";</script>';
         exit;
 	}
-    header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
-    header("Content-Disposition: attachment; filename=data-laporan-".date('Y-m-d').".xls");  //File name extension was wrong
-    header("Expires: 0");
-    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-    header("Cache-Control: private",false); 
-
-    require 'config.php';
-    include $view;
-    $lihat = new view($config);
 
     $bulan_tes =array(
         '01'=>"Januari",
@@ -29,26 +20,46 @@
         '11'=>"November",
         '12'=>"Desember"
     );
+
+
+    if(!empty($_GET['cari'])){
+        $filename = "data-laporan-" . strtolower($bulan_tes[$_GET['bln']]) . "-" . $_GET['thn'];
+    } else if(!empty($_GET['hari'])){
+        $filename = "data-laporan-" . $_GET['tgl'];
+    } else{
+        $filename = "data-laporan-" . date('Y-m-d');
+    }
+
+    header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
+    header("Content-Disposition: attachment; filename=".$filename.".xls");  //File name extension was wrong
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Cache-Control: private",false); 
+
+    require 'config.php';
+    include $view;
+    $lihat = new view($config);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dokumen</title>
 </head>
 <body>
 	<!-- view barang -->	
     <!-- view barang -->	
     <div class="modal-view">
         <h3 style="text-align:center;"> 
-                <?php if(!empty(htmlentities($_GET['cari']))){ ?>
-                    Data Laporan Penjualan <?= $bulan_tes[htmlentities($_GET['bln'])];?> <?= htmlentities($_GET['thn']);?>
-                <?php }elseif(!empty(htmlentities($_GET['hari']))){?>
-                    Data Laporan Penjualan <?= htmlentities($_GET['tgl']);?>
-                <?php }else{?>
-                    Data Laporan Penjualan <?= $bulan_tes[date('m')];?> <?= date('Y');?>
-                <?php }?>
+        <?php if(!empty($_GET['cari'])){ ?>
+			Data Laporan Penjualan Bulan <?= $bulan_tes[$_GET['bln']];?> Tahun <?= $_GET['thn'];?>
+			<?php }elseif(!empty($_GET['hari'])){?>
+			Data Laporan Penjualan Tanggal <?= $_GET['tgl'];?>
+			<?php }else{?>
+			Data Laporan Penjualan Tanggal <?= date('Y-m-d');?>
+			<?php }?>
         </h3>
         <table border="1" width="100%" cellpadding="3" cellspacing="4">
             <thead>
@@ -79,7 +90,7 @@
                         $bayar = 0;
                         $hasil = $lihat -> hari_jual($hari);
                     }else{
-                        $hasil = $lihat -> jual();
+                        $hasil = $lihat -> hari_jual(date('Y-m-d'));
                     }
                 ?>
                 <?php 

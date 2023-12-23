@@ -178,20 +178,6 @@ class view
         return $hasil;
     }
 
-    public function jual()
-    {
-        $sql ="SELECT nota.* , barang.id_barang, barang.nama_barang, barang.harga_beli, member.id_member,
-                member.nm_member from nota 
-                left join barang on barang.id_barang=nota.id_barang 
-                left join member on member.id_member=nota.id_member 
-                where nota.periode = ?
-                ORDER BY id_nota DESC";
-        $row = $this-> db -> prepare($sql);
-        $row -> execute(array(date('m-Y')));
-        $hasil = $row -> fetchAll();
-        return $hasil;
-    }
-
     public function periode_jual($periode)
     {
         $sql ="SELECT nota.* , barang.id_barang, barang.nama_barang, barang.harga_beli, member.id_member,
