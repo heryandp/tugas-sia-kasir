@@ -63,9 +63,9 @@
 							</option>
 							<option value="#" disabled>Pilih Satuan</option>
 							<option <?php echo $hasil['satuan_barang'] == "PCS" ? "selected" : "" ;?> value="PCS">PCS</option>
-							<option <?php echo $hasil['satuan_barang'] == "DUS" ? "selected" : "" ;?> value="PCS">DUS</option>
-							<option <?php echo $hasil['satuan_barang'] == "PAK" ? "selected" : "" ;?> value="PCS">PAK</option>
-							<option <?php echo $hasil['satuan_barang'] == "BAL" ? "selected" : "" ;?> value="PCS">BAL</option>
+							<option <?php echo $hasil['satuan_barang'] == "DUS" ? "selected" : "" ;?> value="DUS">DUS</option>
+							<option <?php echo $hasil['satuan_barang'] == "PAK" ? "selected" : "" ;?> value="PAK">PAK</option>
+							<option <?php echo $hasil['satuan_barang'] == "BAL" ? "selected" : "" ;?> value="BAL">BAL</option>
 						</select>
 					</td>
 				</tr>

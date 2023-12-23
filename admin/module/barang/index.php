@@ -210,9 +210,9 @@
                                         <select name="satuan" class="form-control" required>
                                             <option value="#" disabled selected>Pilih Satuan</option>
                                             <option value="PCS">PCS</option>
-                                            <option value="PCS">DUS</option>
-                                            <option value="PCS">PAK</option>
-                                            <option value="PCS">BAL</option>
+                                            <option value="DUS">DUS</option>
+                                            <option value="PAK">PAK</option>
+                                            <option value="BAL">BAL</option>
                                         </select>
                                     </td>
                                 </tr>
