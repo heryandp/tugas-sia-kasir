@@ -67,9 +67,11 @@
                     <th> No</th>
                     <th> ID Barang</th>
                     <th> Nama Barang</th>
+                    <th style="width:10%;"> Satuan</th>
                     <th style="width:10%;"> Jumlah</th>
                     <th style="width:10%;"> Modal</th>
                     <th style="width:10%;"> Total</th>
+                    <th style="width:10%;"> Pajak</th>
                     <th> Kasir</th>
                     <th> Tanggal Input</th>
                 </tr>
@@ -98,17 +100,20 @@
                     $jumlah = 0;
                     $modal = 0;
                     foreach($hasil as $isi){ 
-                        $bayar += $isi['total'];
+                        $bayar += $isi['total'] + $isi['pajak'];
                         $modal += $isi['harga_beli'] * $isi['jumlah'];
+                        $ppn += $isi['pajak'];
                         $jumlah += $isi['jumlah'];
                 ?>
                 <tr>
                     <td><?php echo $no;?></td>
                     <td><?php echo $isi['id_barang'];?></td>
                     <td><?php echo $isi['nama_barang'];?></td>
+                    <td><?php echo $isi['satuan_barang'];?> </td>
                     <td><?php echo $isi['jumlah'];?> </td>
                     <td>Rp.<?php echo number_format($isi['harga_beli']* $isi['jumlah']);?>,-</td>
-                    <td>Rp.<?php echo number_format($isi['total']);?>,-</td>
+                    <td>Rp.<?php echo number_format($isi['total'] + $isi['pajak']);?>,-</td>
+					<td>Rp.<?php echo number_format($isi['pajak']);?>,-</td>
                     <td><?php echo $isi['nm_member'];?></td>
                     <td><?php echo $isi['tanggal_input'];?></td>
                 </tr>
@@ -116,13 +121,15 @@
                 <tr>
                     <td>-</td>
                     <td>-</td>
+                    <td>-</td>
                     <td><b>Total Terjual</b></td>
                     <td><b><?php echo $jumlah;?></b></td>
                     <td><b>Rp.<?php echo number_format($modal);?>,-</b></td>
                     <td><b>Rp.<?php echo number_format($bayar);?>,-</b></td>
+                    <td><b>Rp.<?php echo number_format($ppn);?>,-</b></td>
                     <td><b>Keuntungan</b></td>
                     <td><b>
-                        Rp.<?php echo number_format($bayar-$modal);?>,-</b></td>
+                        Rp.<?php echo number_format($bayar-$modal-$ppn);?>,-</b></td>
                 </tr>
             </tbody>
         </table>

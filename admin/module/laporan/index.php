@@ -138,9 +138,11 @@
 								<th> No</th>
 								<th> ID Barang</th>
 								<th> Nama Barang</th>
+								<th style="width:10%;"> Satuan</th>
 								<th style="width:10%;"> Jumlah</th>
 								<th style="width:10%;"> Harga Beli</th>
 								<th style="width:10%;"> Harga Jual</th>
+								<th style="width:10%;"> Pajak</th>
 								<th> Kasir</th>
 								<th> Tanggal Input</th>
 							</tr>
@@ -169,17 +171,20 @@
 								$jumlah = 0;
 								$modal = 0;
 								foreach($hasil as $isi){ 
-									$bayar += $isi['total'];
+									$bayar += $isi['total'] + $isi['pajak'];
 									$modal += $isi['harga_beli']* $isi['jumlah'];
+									$ppn += $isi['pajak'];
 									$jumlah += $isi['jumlah'];
 							?>
 							<tr>
 								<td><?php echo $no;?></td>
 								<td><?php echo $isi['id_barang'];?></td>
 								<td><?php echo $isi['nama_barang'];?></td>
+								<td><?php echo $isi['satuan_barang'];?> </td>
 								<td><?php echo $isi['jumlah'];?> </td>
 								<td>Rp.<?php echo number_format($isi['harga_beli']* $isi['jumlah']);?>,-</td>
-								<td>Rp.<?php echo number_format($isi['total']);?>,-</td>
+								<td>Rp.<?php echo number_format($isi['total'] + $isi['pajak']);?>,-</td>
+								<td>Rp.<?php echo number_format($isi['pajak']);?>,-</td>
 								<td><?php echo $isi['nm_member'];?></td>
 								<td><?php echo $isi['tanggal_input'];?></td>
 							</tr>
@@ -187,13 +192,14 @@
 						</tbody>
 						<tfoot>
 							<tr>
-								<th colspan="3">Total Terjual</td>
+								<th colspan="4">Total Terjual</td>
 								<th><?php echo $jumlah;?></td>
 								<th>Rp.<?php echo number_format($modal);?>,-</th>
 								<th>Rp.<?php echo number_format($bayar);?>,-</th>
+								<th>Rp.<?php echo number_format($ppn);?>,-</th>
 								<th style="background:#0bb365;color:#fff;">Keuntungan</th>
 								<th style="background:#0bb365;color:#fff;">
-									Rp.<?php echo number_format($bayar-$modal);?>,-</th>
+									Rp.<?php echo number_format($bayar-$modal-$ppn);?>,-</th>
 							</tr>
 						</tfoot>
 					</table>
