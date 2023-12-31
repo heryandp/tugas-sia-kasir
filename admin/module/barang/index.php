@@ -36,8 +36,10 @@
 			}
 		?>
         <!-- Trigger the modal with a button -->
+        <?php if($_SESSION['admin']['nama_role'] == 'Administrator'){ ?>
         <button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
             <i class="fa fa-plus"></i> Tambah Data</button>
+        <?php } ?>
         <a href="index.php?page=barang&stok=yes" class="btn btn-warning btn-md mr-2">
             <i class="fa fa-filter"></i> Filter Stok Kurang</a>
         <a href="index.php?page=barang" class="btn btn-success btn-md">
@@ -94,40 +96,27 @@
                             <td>Rp.<?php echo number_format($isi['harga_jual']);?>,-</td>
                             <td> <?php echo $isi['satuan_barang'];?></td>
                             <td>
-                                <?php if($isi['stok'] <=  '3'){?>
-                                <form method="POST" action="fungsi/edit/edit.php?stok=edit">
-                                    <input type="text" name="restok" class="form-control">
-                                    <input type="hidden" name="id" value="<?php echo $isi['id_barang'];?>"
-                                        class="form-control">
-                                    <button class="btn btn-primary btn-sm">
-                                        Restok
-                                    </button>
-                                    <a href="fungsi/hapus/hapus.php?barang=hapus&id=<?php echo $isi['id_barang'];?>"
-                                        onclick="javascript:return confirm('Hapus Data barang ?');">
-                                        <button class="btn btn-danger btn-sm">Hapus</button></a>
-                                </form>
-                                <?php }else{?>
                                 <a href="index.php?page=barang/details&barang=<?php echo $isi['id_barang'];?>" class="btn btn-primary btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-info"></i>
                                     </span>
                                     <span class="text">Detil</span>
                                 </a>
-
+                                <?php if($_SESSION['admin']['nama_role'] == 'Administrator'){ ?>
                                 <a href="index.php?page=barang/edit&barang=<?php echo $isi['id_barang'];?>" class="btn btn-warning btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-exclamation-triangle"></i>
                                     </span>
                                     <span class="text">Edit</span>
                                 </a>
-
                                 <a href="fungsi/hapus/hapus.php?barang=hapus&id=<?php echo $isi['id_barang'];?>" onclick="javascript:return confirm('Hapus Data barang ?');" class="btn btn-danger btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
                                     <span class="text">Hapus</span>
                                 </a>
-                                <?php }?>
+
+                                <?php } ?>
                         </tr>
                         <?php 
 							$no++; 

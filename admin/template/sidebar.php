@@ -19,13 +19,22 @@
 
     <!-- Nav Item - Dashboard -->
     <!-- <a href="./index.php?page=jual" class="btn btn-info ml-1 mr-1 mt-1" role="button">Transaksi Jual</a> -->
-    <a href="./index.php?page=jual" class="btn ml-1 mr-1 mt-1 btn-info btn-icon-split">
+    <?php if($_SESSION['admin']['nama_role'] == 'Administrator'){ ?>
+    <a href="./index.php?page=laporan" class="btn ml-1 mr-1 mt-1 btn-info ">
+        <span class="icon text-white">
+            <i class="fas fa-table"></i>
+        </span>
+        <span class="text">Laporan Penjualan</span>
+    </a>
+
+    <?php }else{ ?>
+    <a href="./index.php?page=jual" class="btn ml-1 mr-1 mt-1 btn-info ">
         <span class="icon text-white">
             <i class="fas fa-cart-plus"></i>
         </span>
         <span class="text">Transaksi Jual</span>
     </a>
-
+    <?php } ?>
     <li class="nav-item active">
         <a class="nav-link" href="index.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -47,10 +56,11 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                 <a class="collapse-item" href="index.php?page=barang">Barang</a>
+                <?php if($_SESSION['admin']['nama_role'] == 'Administrator'){ ?>
                 <a class="collapse-item" href="index.php?page=kategori">Kategori</a>
-                <!-- <a class="collapse-item" href="index.php?page=user">User</a> -->
+                <a class="collapse-item" href="index.php?page=user">User</a>
+                <?php } ?>
             </div>
         </div>
     </li>
@@ -63,12 +73,15 @@
         </a>
         <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+            <?php if($_SESSION['admin']['nama_role'] == 'Kasir'){ ?>
                 <a class="collapse-item" href="index.php?page=jual">Transaksi Jual</a>
+            <?php } else{ ?>
                 <a class="collapse-item" href="index.php?page=laporan">Laporan Penjualan</a>
+            <?php } ?>
             </div>
         </div>
     </li>
+<?php if($_SESSION['admin']['nama_role'] == 'Administrator'){ ?>
     <hr class="sidebar-divider">
     <li class="nav-item active">
         <a class="nav-link" href="index.php?page=pengaturan">
@@ -77,6 +90,7 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
+<?php } ?>
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
@@ -110,13 +124,13 @@
                         <img class="img-profile rounded-circle"
                             src="assets/img/user/<?php echo $hasil_profil['gambar'];?>">
                         <span
-                            class="mr-2 d-none d-lg-inline text-gray-600 small ml-2"><?php echo $hasil_profil['nm_member'];?></span>
+                            class="mr-2 d-none d-lg-inline text-gray-600 small ml-2"><?php echo $hasil_profil['nm_member'] . " (" . $hasil_profil['nama_role'] . ")";?></span>
                         <i class="fas fa-angle-down"></i>
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="index.php?page=user">
+                        <a class="dropdown-item" href="index.php?page=profil">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profil
                         </a>

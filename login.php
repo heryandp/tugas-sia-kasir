@@ -8,9 +8,10 @@
 		$user = strip_tags($_POST['user']);
 		$pass = strip_tags($_POST['pass']);
 
-		$sql = 'select member.*, login.user, login.pass
+		$sql = 'select member.*, login.*, ref_role.nama_role
 				from member inner join login on member.id_member = login.id_member
-				where user =? and pass = md5(?)';
+				inner join ref_role on login.id_role = ref_role.id_role
+				where user =? and pass = md5(?) and login.fg_aktif = 1';
 		$row = $config->prepare($sql);
 		$row -> execute(array($user,$pass));
 		$jum = $row -> rowCount();

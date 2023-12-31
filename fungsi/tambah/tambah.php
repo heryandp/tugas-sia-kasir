@@ -2,9 +2,9 @@
 session_start();
 
 // fungsi untuk upload foto produk
-function uploadPhoto($file)
+function uploadPhoto($file, $jenis)
 {
-    $targetDirectory = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/produk/';
+    $targetDirectory = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/'.$jenis.'/';
 
     // Generate a unique filename using timestamp and original extension
     $timestamp = time();  // Get current timestamp
@@ -34,6 +34,62 @@ function uploadPhoto($file)
 
 if (!empty($_SESSION['admin'])) {
     require '../../config.php';
+    if (!empty($_GET['user'])) {
+        $nama = htmlentities($_POST['nama']);
+        $alamat = htmlentities($_POST['alamat']);
+        $tlp = htmlentities($_POST['telepon']);
+        $email = htmlentities($_POST['email']);
+        $nik = htmlentities($_POST['nik']);
+        $username = htmlentities($_POST['username']);
+        $password = htmlentities($_POST['password']);
+        $role = htmlentities($_POST['role']);
+
+        //Upload foto
+        $foto = uploadPhoto($_FILES['foto'], 'user');
+
+        $sql = 'SELECT COUNT(user) FROM login WHERE user = "'.$username.'"';
+        $row = $config -> prepare($sql);
+        $row -> execute();
+        $count = $row->fetchColumn();
+
+        if($count == 0 && $foto != false){
+
+        $sql = 'SELECT id_member FROM member ORDER BY id_member DESC LIMIT 1';
+        $row = $config -> prepare($sql);
+        $row -> execute();
+        $resultid = $row->fetch(PDO::FETCH_ASSOC);
+        $id = $resultid['id_member']+1;
+
+
+        $data[] = intval($id);
+        $data[] = $nama;
+        $data[] = $alamat;
+        $data[] = $tlp;
+        $data[] = $email;
+        $data[] = $foto;
+        $data[] = $nik;
+
+        $sql = 'INSERT INTO member (id_member, nm_member, alamat_member, telepon, email, gambar, nik) VALUES (?,?,?,?,?,?,?)';
+        $row = $config->prepare($sql);   
+        $row->execute($data);
+
+        $data_login[] = $username;
+        $data_login[] = $password;
+        $data_login[] = $password;
+        $data_login[] = $id;
+        $data_login[] = $role;
+
+        $sql = 'INSERT INTO login (user, pass, default_pass, id_member, id_role) VALUES (?,md5(?),md5(?),?,?)';
+        $row = $config->prepare($sql);    
+        $row->execute($data_login);
+
+        echo '<script>window.location="../../index.php?page=user&success=tambah"</script>';
+        } else{
+            echo '<script>window.location="../../index.php?page=user&gagal=tambah"</script>';
+
+        }
+    }
+
     if (!empty($_GET['kategori'])) {
         $kd= htmlentities(htmlentities($_POST['kdkategori']));
         $nama= htmlentities(htmlentities($_POST['kategori']));
@@ -96,7 +152,7 @@ if (!empty($_SESSION['admin'])) {
             $id = $resultid['id']+1;
         }
 
-        $foto = uploadPhoto($_FILES['foto']);
+        $foto = uploadPhoto($_FILES['foto'], 'produk');
 
         $data[] = $resultkd[0]['kode_kategori'].$id;
         $data[] = $kategori;

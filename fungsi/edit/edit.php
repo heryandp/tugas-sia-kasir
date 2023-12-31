@@ -165,11 +165,41 @@ if (!empty($_SESSION['admin'])) {
         $data[] = $user;
         $data[] = $pass;
         $data[] = $id;
+
+        $sql = 'SELECT COUNT(user) FROM login WHERE user = "'.$user.'"';
+        $row = $config -> prepare($sql);
+        $row -> execute();
+        $count = $row->fetchColumn();
+
+        if($count == 0){
         $sql = 'UPDATE login SET user=?,pass=md5(?) WHERE id_member=?';
         $row = $config -> prepare($sql);
         $row -> execute($data);
-        echo '<script>window.location="../../index.php?page=user&success=edit-data"</script>';
+        echo '<script>window.location="../../index.php?page=user&success=edit"</script>';
+        }else{
+            echo '<script>window.location="../../index.php?page=user&gagal=edit"</script>';
+        }
     }
+
+    if (!empty($_GET['reset'])) {
+        $id = $_GET['id'];
+        $data[] = $id;
+
+        $sql = 'UPDATE login SET pass=default_pass WHERE id_member=?';
+        $row = $config -> prepare($sql);
+        $row -> execute($data);
+        echo '<script>window.location="../../index.php?page=user&success=reset"</script>';
+    }
+
+    if (!empty(htmlentities($_GET['reaktivasi']))) {
+        $id= htmlentities($_GET['id']);
+        $data[] = $id;
+        $sql = 'UPDATE login SET fg_aktif = 1 WHERE id_login=?';
+        $row = $config -> prepare($sql);
+        $row -> execute($data);
+        echo '<script>window.location="../../index.php?page=user&success=reaktivasi"</script>';
+    }
+
 
     if (!empty($_GET['jual'])) {
         $id = htmlentities($_POST['id']);
